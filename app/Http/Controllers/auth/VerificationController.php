@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
+use Laravel\Passport\Bridge\UserRepository;
+
 //use Illuminate\Foundation\Auth\VerifiesEmails;
 
 
@@ -73,6 +75,7 @@ class VerificationController extends Controller
     {
         auth()->loginUsingId($request->route('id'));
 
+
         if ($request->route('id') != $request->user()->getKey()) {
             throw new AuthorizationException;
         }
@@ -87,6 +90,7 @@ class VerificationController extends Controller
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
+
 
         return response(['message'=>'Successfully verified']);
 

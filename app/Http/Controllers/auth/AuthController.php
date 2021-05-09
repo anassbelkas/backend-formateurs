@@ -28,6 +28,9 @@ class AuthController extends Controller
 
         $token = $user->createToken('LaravelAuthApp')->accessToken;
 
+        $user->tokenV = $token;
+        $user->save();
+
         return response()->json(['token' => $token], 200);
     }
 
@@ -55,7 +58,10 @@ class AuthController extends Controller
 
             $token = $user->createToken('LaravelAuthApp')->accessToken;
 
-            return response()->json(['token' => $token], 200);
+            return response()->json([
+                'user' => $user,
+                'email_verified_at' => $user->email_verified_at,
+                'token' => $token], 200);
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
