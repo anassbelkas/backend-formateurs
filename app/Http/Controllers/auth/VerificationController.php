@@ -91,6 +91,7 @@ class VerificationController extends Controller
             event(new Verified($request->user()));
         }
 
+        redirect()->to('http://localhost:3000/#/verify')->send();
 
         return response(['message'=>'Successfully verified']);
 
