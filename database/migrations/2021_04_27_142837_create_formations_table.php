@@ -21,6 +21,12 @@ class CreateFormationsTable extends Migration
             $table->decimal('nombreDeJours');
             $table->decimal('tarifsParJours');
             $table->decimal('nombreDeParticipant');
+            $table->text('modalites');
+            $table->text('publicConcerne');
+            $table->text('lieuFormation');
+            $table->decimal('dureeFormation');
+            $table->date('dateDebut');
+            $table->text('horaire');
 
             $table->foreign('user_id')->references('id')->on('users');
 

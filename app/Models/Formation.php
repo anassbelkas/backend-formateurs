@@ -14,6 +14,12 @@ class Formation extends Model
         'description',
         'nombreDeJours',
         'tarifsParJours',
-        'nombreDeParticipant'
+        'nombreDeParticipant',
+        'modalites',
+        'publicConcerne',
+        'lieuFormation',
+        'dureeFormation',
+        'dateDebut',
+        'horaire'
     ];
 }

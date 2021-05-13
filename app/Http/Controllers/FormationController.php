@@ -41,7 +41,13 @@ class FormationController extends Controller
             'description' => 'required',
             'nombreDeJours' => 'required',
             'tarifsParJours' => 'required',
-            'nombreDeParticipant' => 'required'
+            'nombreDeParticipant' => 'required',
+            'modalites' => 'required',
+            'publicConcerne' => 'required',
+            'lieuFormation' => 'required',
+            'dureeFormation' => 'required',
+            'dateDebut' => 'required',
+            'horaire' => 'required'
         ]);
 
         $formation = new Formation();
@@ -50,6 +56,12 @@ class FormationController extends Controller
         $formation->nombreDeJours = $request->nombreDeJours;
         $formation->tarifsParJours = $request->tarifsParJours;
         $formation->nombreDeParticipant = $request->nombreDeParticipant;
+        $formation->modalites = $request->modalites;
+        $formation->publicConcerne = $request->publicConcerne;
+        $formation->lieuFormation = $request->lieuFormation;
+        $formation->dureeFormation = $request->dureeFormation;
+        $formation->dateDebut = $request->dateDebut;
+        $formation->horaire = $request->horaire;
 
         if (auth()->user()->formations()->save($formation))
             return response()->json([
