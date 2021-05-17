@@ -26,7 +26,7 @@ class TodoController extends Controller
     {
 
         $newTodo = new Todo;
-        $newTodo->name = $request->todo["name"];
+        $newTodo->name = $request->name;
 
 
 
@@ -47,8 +47,8 @@ class TodoController extends Controller
         $todo = auth()->user()->todos()->find($id);
 
         if ($todo) {
-            $todo->completed = $request->todo['completed'] ? true : false;
-            $todo->completed_at = $request->todo['completed'] ? Carbon::now() : null;
+            $todo->completed = $request->completed ? true : false;
+            $todo->completed_at = $request->completed ? Carbon::now() : null;
             $todo->save();
             return $todo;
         }
