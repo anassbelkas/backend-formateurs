@@ -26,7 +26,9 @@ class CreateFormationsTable extends Migration
             $table->text('lieuFormation');
             $table->decimal('dureeFormation');
             $table->date('dateDebut');
-            $table->text('horaire');
+            $table->date('dateFin');
+            $table->time('horaireDebut');
+            $table->time('horaireFin');
 
             $table->foreign('user_id')->references('id')->on('users');
 

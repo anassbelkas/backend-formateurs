@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Formation;
+use Illuminate\Support\Carbon;
 
 class FormationController extends Controller
 {
@@ -47,7 +48,9 @@ class FormationController extends Controller
             'lieuFormation' => 'required',
             'dureeFormation' => 'required',
             'dateDebut' => 'required',
-            'horaire' => 'required'
+            'dateFin' => 'required',
+            'horaireDebut' => 'required',
+            'horaireFin' => 'required'
         ]);
 
         $formation = new Formation();
@@ -61,7 +64,9 @@ class FormationController extends Controller
         $formation->lieuFormation = $request->lieuFormation;
         $formation->dureeFormation = $request->dureeFormation;
         $formation->dateDebut = $request->dateDebut;
-        $formation->horaire = $request->horaire;
+        $formation->dateFin = $request->dateFin;
+        $formation->horaireDebut = $request->horaireDebut;
+        $formation->horaireFin = $request->horaireFin;
 
         if (auth()->user()->formations()->save($formation))
             return response()->json([

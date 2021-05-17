@@ -20,6 +20,9 @@ class Formation extends Model
         'lieuFormation',
         'dureeFormation',
         'dateDebut',
-        'horaire'
+        'dateFin',
+        'horaireDebut',
+        'horaireFin'
     ];
+
 }
