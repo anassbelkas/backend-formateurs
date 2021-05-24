@@ -18,13 +18,13 @@ class CreateFormationsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->text('title');
             $table->longText('description');
-            $table->decimal('nombreDeJours');
+            $table->integer('nombreDeJours');
             $table->decimal('tarifsParJours');
-            $table->decimal('nombreDeParticipant');
+            $table->integer('nombreDeParticipant');
             $table->text('modalites');
             $table->text('publicConcerne');
             $table->text('lieuFormation');
-            $table->decimal('dureeFormation');
+            $table->integer('dureeFormation');
             $table->date('dateDebut');
             $table->date('dateFin');
             $table->time('horaireDebut');

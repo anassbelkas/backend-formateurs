@@ -26,7 +26,7 @@ class TodoController extends Controller
     {
 
         $newTodo = new Todo;
-        $newTodo->name = $request->name;
+        $newTodo->nameTodo = $request->nameTodo;
         $newTodo->completed = false;
 
 

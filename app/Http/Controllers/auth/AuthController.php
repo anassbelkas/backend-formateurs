@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -81,4 +82,58 @@ class AuthController extends Controller
         return response()->json($request->user());
     }
 
+    public function updateProfile(Request $request){
+        $validator = Validator::make($request->all(),[
+            'name'=>'required||min:4|max:55',
+            'firstName' => 'nullable',
+            'lastName' => 'nullable',
+            'job' => 'nullable',
+            'age' => 'nullable',
+            'adresse' => 'nullable',
+            'city' => 'nullable',
+            'country' => 'nullable',
+            'codePostal' => 'nullable',
+            'aboutMe' => 'nullable'
+        ]);
+        if ($validator->fails()){
+            $error = $validator->errors()->all()[0];
+            return response()->json(['status'=>'false','message'=>$error,'data'=>[]],422);
+        }else{
+            $user = User::find($request->user()->id);
+            $user->name = $request->name;
+            $user->firstName = $request->firstName;
+            $user->lastName = $request->lastName;
+            $user->job = $request->job;
+            $user->age = $request->age;
+            $user->adresse = $request->adresse;
+            $user->city = $request->city;
+            $user->country = $request->country;
+            $user->codePostal = $request->codePostal;
+            $user->aboutMe = $request->aboutMe;
+
+            $user->update();
+            return response()->json(['status'=>'true','message'=>'Profile Updated!','data'=>$user]);
+        }
+    }
+
+    public function updatePicture(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'picture' => 'nullable|image'
+        ]);
+        if ($validator->fails()) {
+            $error = $validator->errors()->all()[0];
+            return response()->json(['status' => 'false', 'message' => $error, 'data' => []], 422);
+        } else {
+            $user = User::find($request->user()->id);
+            if ($request->picture && $request->picture->isValid()) {
+                $file_name = time() . '.' . $request->picture->extension();
+                $request->picture->move(public_path('images'), $file_name);
+                $path = "images/$file_name";
+                $user->picture = $path;
+            }
+            $user->update();
+            return response()->json(['status' => 'true', 'message' => 'Picture Updated!', 'data' => $user]);
+        }
+    }
 }
