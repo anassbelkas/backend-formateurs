@@ -16,14 +16,16 @@ class AuthController extends Controller
      */
     public function register(Request $req){
         $this->validate($req, [
-            'name'=>'required||min:4|max:55',
+            'name'=>'required|min:4|max:55',
             'email'=>'email|required',
+            'type'=>'boolean',
             'password'=>'required|confirmed|min:8'
         ]);
 
         $user = User::create([
             'name' => $req->name,
             'email' => $req->email,
+            'type' => $req->type,
             'password' => bcrypt($req->password)
         ]);
 
@@ -134,6 +136,37 @@ class AuthController extends Controller
             }
             $user->update();
             return response()->json(['status' => 'true', 'message' => 'Picture Updated!', 'data' => $user]);
+        }
+    }
+
+    public function adminDashboard()
+    {
+        $users = User::all();
+        $success =  $users;
+
+        return response()->json($success, 200);
+    }
+
+    public function destroyUser($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'user not found'
+            ], 400);
+        }
+
+        if ($user->delete()) {
+            return response()->json([
+                'success' => true
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'user can not be deleted'
+            ], 500);
         }
     }
 }

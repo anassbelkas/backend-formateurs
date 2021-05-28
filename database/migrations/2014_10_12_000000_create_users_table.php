@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->text('tokenV')->nullable();
+            $table->boolean('type')->default(0);
             $table->string('firstName')->nullable();
             $table->string('lastName')->nullable();
             $table->string('job')->nullable();

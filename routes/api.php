@@ -4,6 +4,7 @@ use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\auth\VerificationController;
 use App\Http\Controllers\FormationController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -59,4 +60,12 @@ Route::middleware('auth:api')->group(function () {
     Route::post('updateProfile', [AuthController::class, 'updateProfile'])->middleware('verified');
 
     Route::post('updatePicture', [AuthController::class, 'updatePicture'])->middleware('verified');
+
+    //ADMIN
+
+    Route::get('/admin/dashboard', [AuthController::class, 'adminDashboard'])->middleware('verified');
+
+    Route::delete('/admin/destroy/{id}', [AuthController::class, 'destroyUser'])->middleware('verified');
+
+    Route::get('/admin/formations/{id}', [AdminController::class, 'showFormations'])->middleware('verified');
 });
