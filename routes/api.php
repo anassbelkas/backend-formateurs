@@ -28,7 +28,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-
+Route::get('/user', [AuthController::class, 'user']);
 Route::group([
     'namespace' => 'Auth',
     'middleware' => 'api',
@@ -55,7 +55,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/logout', [AuthController::class, 'logout'])->middleware('verified');
 
-    Route::get('/user', [AuthController::class, 'user'])->middleware('verified');
+
 
     Route::post('updateProfile', [AuthController::class, 'updateProfile'])->middleware('verified');
 
