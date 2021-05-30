@@ -9,11 +9,54 @@ class AdminController extends Controller
 {
     public function showFormations($id)
     {
-        $formations = User::find($id)->formations;
+        $type = auth()->user()->type;
 
-        return response()->json([
-            'success' => true,
-            'data' => $formations
-        ]);
+        if($type == 1) {
+            $formations = User::find($id)->formations;
+
+            return response()->json([
+                'success' => true,
+                'data' => $formations
+            ]);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'you are not admin'
+            ], 500);
+        }
+    }
+
+
+
+    public function destroyFormation($id, $idF)
+    {
+        $type = auth()->user()->type;
+
+        if($type == 1) {
+            $formation = User::find($id)->formations()->find($idF);
+
+            if (!$formation) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'formation not found'
+                ], 400);
+            }
+
+            if ($formation->delete()) {
+                return response()->json([
+                    'success' => true
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'formation can not be deleted'
+                ], 500);
+            }
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'you are not admin'
+            ], 500);
+        }
     }
 }

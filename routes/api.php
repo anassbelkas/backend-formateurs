@@ -68,4 +68,6 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/admin/destroy/{id}', [AuthController::class, 'destroyUser'])->middleware('verified');
 
     Route::get('/admin/formations/{id}', [AdminController::class, 'showFormations'])->middleware('verified');
+
+    Route::delete('/admin/{id}/formations/{idF}', [AdminController::class, 'destroyFormation'])->middleware('verified');
 });

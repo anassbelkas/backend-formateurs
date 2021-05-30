@@ -141,31 +141,49 @@ class AuthController extends Controller
 
     public function adminDashboard()
     {
-        $users = User::all();
-        $success =  $users;
+        $type = auth()->user()->type;
 
-        return response()->json($success, 200);
+        if($type == 1) {
+            $users = User::all();
+            $success = $users;
+
+            return response()->json($success, 200);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'you are not admin'
+            ], 500);
+        }
     }
 
     public function destroyUser($id)
     {
-        $user = User::find($id);
+        $type = auth()->user()->type;
 
-        if (!$user) {
+        if($type == 1) {
+            $user = User::find($id);
+
+            if (!$user) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'user not found'
+                ], 400);
+            }
+
+            if ($user->delete()) {
+                return response()->json([
+                    'success' => true
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'user can not be deleted'
+                ], 500);
+            }
+        }else{
             return response()->json([
                 'success' => false,
-                'message' => 'user not found'
-            ], 400);
-        }
-
-        if ($user->delete()) {
-            return response()->json([
-                'success' => true
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'user can not be deleted'
+                'message' => 'you are not admin'
             ], 500);
         }
     }
