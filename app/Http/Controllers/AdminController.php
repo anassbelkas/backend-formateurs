@@ -59,4 +59,56 @@ class AdminController extends Controller
             ], 500);
         }
     }
+    public function showTasks($id)
+    {
+        $type = auth()->user()->type;
+
+        if($type == 1) {
+            $task = User::find($id)->todos;
+
+            return response()->json([
+                'success' => true,
+                'data' => $task
+            ]);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'you are not admin'
+            ], 500);
+        }
+    }
+
+
+
+    public function destroyTasks($id, $idT)
+    {
+        $type = auth()->user()->type;
+
+        if($type == 1) {
+            $task = User::find($id)->todos()->find($idT);
+
+            if (!$task) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'task not found'
+                ], 400);
+            }
+
+            if ($task->delete()) {
+                return response()->json([
+                    'success' => true
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'task can not be deleted'
+                ], 500);
+            }
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'you are not admin'
+            ], 500);
+        }
+    }
 }

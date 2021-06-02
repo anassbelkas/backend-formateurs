@@ -70,4 +70,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/admin/formations/{id}', [AdminController::class, 'showFormations'])->middleware('verified');
 
     Route::delete('/admin/{id}/formations/{idF}', [AdminController::class, 'destroyFormation'])->middleware('verified');
+
+    Route::get('/admin/tasks/{id}', [AdminController::class, 'showTasks'])->middleware('verified');
+
+    Route::delete('/admin/{id}/tasks/{idT}', [AdminController::class, 'destroyTasks'])->middleware('verified');
 });
