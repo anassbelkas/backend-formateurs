@@ -24,5 +24,7 @@ class Formation extends Model
         'horaireDebut',
         'horaireFin'
     ];
-
+    public function quality(){
+        return $this->hasOne(Quality::class);
+    }
 }

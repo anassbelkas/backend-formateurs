@@ -5,6 +5,7 @@ use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\auth\VerificationController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\QualityController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,10 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->middleware('verified');
 
     Route::get('/user', [AuthController::class, 'user'])->middleware('verified');
+
+    Route::post('addQuality', [QualityController::class, 'addQuality'])->middleware('verified');
+
+    Route::get('/showQuality/{id}', [QualityController::class, 'showQuality'])->middleware('verified');
 
     Route::post('updateProfile', [AuthController::class, 'updateProfile'])->middleware('verified');
 
