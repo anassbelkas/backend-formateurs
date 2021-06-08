@@ -5,6 +5,7 @@ use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\auth\VerificationController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\QualityController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Http\Request;
@@ -28,6 +29,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::post('contact', [MailController::class, 'sendEmail']);
 
 
 Route::group([
